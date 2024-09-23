@@ -1,0 +1,211 @@
+:root {
+    --c-main-color: #eaf0f8;
+    --c-main-light: #f5f9fd;
+    --c-main-dark: #d8e3f0;
+    --c-accent: #3b82f6;
+    --c-text: #2e2e2e;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    font-family:
+        'Poppins',
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        'Helvetica Neue',
+        Arial,
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Segoe UI Symbol',
+        sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-y: auto;
+}
+
+body {
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+    line-height: 1.1;
+}
+
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+input,
+button,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+button {
+    color: inherit;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.btn {
+    border-radius: 5px;
+    padding: 8px 16px;
+    background: var(--c-accent);
+    color: white;
+}
+
+.btn:hover {
+    background: var(--c-main-light);
+    color: var(--c-accent);
+}
+
+.disabled {
+    display: none !important;
+}
+
+#page {
+    background: var(--c-main-color);
+    color: var(--c-text);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    grid-auto-rows: max-content;
+    gap: 20px;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 10px;
+    background: var(--c-main-dark);
+}
+
+.header h1 {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: var(--c-main-dark);
+    border-radius: 5px;
+    max-width: 90%;
+}
+
+.form input {
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: var(--c-main-light);
+    color: var(--c-text);
+    border: 1px solid var(--c-main-dark);
+}
+
+.modal input[type='text'],
+.modal input[type='date'] {
+    height: 35px;
+}
+
+.form input:focus {
+    outline: none;
+    border: 1px solid var(--c-accent);
+}
+
+#weatherData {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    padding: 20px;
+    background: var(--c-main-light);
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+.card.current {
+    display: grid;
+    grid-template-areas: 'current details';
+    gap: 20px;
+}
+
+.temperature-container {
+    grid-area: current;
+}
+
+.current .location {
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.current .temperature {
+    font-size: 4rem;
+    font-weight: 700;
+    display: flex;
+    gap: 10px;
+}
+
+.weather-icon {
+    display: flex;
+    align-items: center;
+    font-size: 50px;
+}
+
+.details-container {
+    grid-area: details;
+    display: grid;
+    align-content: center;
+    text-align: right;
+}
+
+.description {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.feels-like {
+    font-size: 1.4rem;
+}
