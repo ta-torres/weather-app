@@ -19,6 +19,15 @@ async function getWeather(location) {
     }
 }
 
+const processWeather = (data) => {
+    let { resolvedAddress, currentConditions, days } = data;
+    return {
+        currentConditions,
+        days,
+        resolvedAddress,
+    };
+};
+
 const displayWeather = (data) => {
     weatherData.innerHTML = `
         <div class="card current">
