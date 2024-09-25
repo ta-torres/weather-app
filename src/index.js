@@ -7,9 +7,9 @@ myLogo.src = logo;
 const apiKey = 'YVVLSZW6DTVFAC3VEABQEW7DK';
 const weatherData = document.querySelector('#weatherData');
 
-async function getWeather(location) {
+async function getWeather(location, unit = 'metric') {
     try {
-        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${apiKey}&contentType=json`;
+        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=${unit}&key=${apiKey}&contentType=json`;
         const response = await fetch(url);
         if (!response.ok) throw new Error(response.statusText);
         const data = processWeather(await response.json());
@@ -29,7 +29,8 @@ const processWeather = (data) => {
     };
 };
 
-const displayWeather = (data) => {
+const displayWeather = (data, unit) => {
+    const tempUnit = unit === 'metric' ? '°C' : '°F';
     weatherData.innerHTML = `
         <div class="card current">
             <div class="temperature-container">
@@ -37,13 +38,13 @@ const displayWeather = (data) => {
                     <p>${data.resolvedAddress}</p>
                 </div>
                 <div class="temperature">
-                    <p>${data.currentConditions.temp} ºC</p>
+                    <p>${data.currentConditions.temp} ${tempUnit}</p>
                     <div class="weather-icon">
                     <iconify-icon icon="material-symbols:${data.currentConditions.icon}"></iconify-icon>
                 </div>
                 </div>
                 <div class="min-max">
-                    <p>Min. ${data.days[0].tempmin} ºC / Max. ${data.days[0].tempmax} ºC</p>
+                    <p>Min. ${data.days[0].tempmin} ${tempUnit} / Max. ${data.days[0].tempmax} ${tempUnit}</p>
                 </div>
             </div>
             <div class="details-container">
@@ -51,7 +52,7 @@ const displayWeather = (data) => {
                     <p>${data.currentConditions.conditions}</p>
                 </div>
                 <div class="feels-like">
-                    <p>Feels like: ${data.currentConditions.feelslike} ºC</p>
+                    <p>Feels like: ${data.currentConditions.feelslike} ${tempUnit}</p>
                 </div>
             </div>
         </div>
@@ -59,10 +60,13 @@ const displayWeather = (data) => {
 };
 
 const form = document.querySelector('form');
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const location = document.querySelector('#location').value;
     if (!location) return;
-    getWeather(location);
+    const unit = document.querySelector('input[name="unit"]:checked').value;
+
+    const weatherData = await getWeather(location, unit);
+    if (weatherData) displayWeather(weatherData, unit);
     form.reset();
 });

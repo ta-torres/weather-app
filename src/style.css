@@ -143,9 +143,13 @@ a {
     border: 1px solid var(--c-main-dark);
 }
 
-.modal input[type='text'],
-.modal input[type='date'] {
+.form input[type='text'],
+.form input[type='date'] {
     height: 35px;
+}
+
+.form input[type='radio'] {
+    width: 20px;
 }
 
 .form input:focus {
