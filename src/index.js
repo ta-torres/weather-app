@@ -6,6 +6,7 @@ myLogo.src = logo;
 
 const apiKey = 'YVVLSZW6DTVFAC3VEABQEW7DK';
 const weatherData = document.querySelector('#weatherData');
+const errorMessage = document.querySelector('.error-message');
 
 async function getWeather(location, unit = 'metric') {
     try {
@@ -62,11 +63,16 @@ const displayWeather = (data, unit) => {
 const form = document.querySelector('form');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    errorMessage.textContent = '';
     const location = document.querySelector('#location').value;
     if (!location) return;
     const unit = document.querySelector('input[name="unit"]:checked').value;
 
     const weatherData = await getWeather(location, unit);
-    if (weatherData) displayWeather(weatherData, unit);
+    if (weatherData) {
+        displayWeather(weatherData, unit);
+    } else {
+        errorMessage.textContent = 'City not found';
+    }
     form.reset();
 });
