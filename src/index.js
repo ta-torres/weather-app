@@ -11,11 +11,12 @@ async function getWeather(location) {
     try {
         const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${apiKey}&contentType=json`;
         const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
-        return displayWeather(data);
+        if (!response.ok) throw new Error(response.statusText);
+        const data = processWeather(await response.json());
+        return data;
     } catch (error) {
         console.log(error);
+        return null;
     }
 }
 
@@ -61,5 +62,7 @@ const form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const location = document.querySelector('#location').value;
+    if (!location) return;
     getWeather(location);
+    form.reset();
 });
